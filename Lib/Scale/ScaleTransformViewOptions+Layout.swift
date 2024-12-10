@@ -25,8 +25,10 @@ public extension ScaleTransformViewOptions {
         switch layout {
         case .blur:
             return Self(
-                minScale: 0.6,
-                scaleRatio: 0.4,
+                minScaleWidth: 0.6,
+                minScaleHeight: 0.6,
+                scaleRatioWidth: 0.4,
+                scaleRatioHeight: 0.4,
                 translationRatio: CGPoint(x: 0.66, y: 0.2),
                 maxTranslationRatio: CGPoint(x: 2, y: 0),
                 blurEffectEnabled: true,
@@ -34,8 +36,10 @@ public extension ScaleTransformViewOptions {
             )
         case .linear:
             return Self(
-                minScale: 0.6,
-                scaleRatio: 0.4,
+                minScaleWidth: 0.6,
+                minScaleHeight: 0.6,
+                scaleRatioWidth: 0.4,
+                scaleRatioHeight: 0.4,
                 translationRatio: CGPoint(x: 0.66, y: 0.2),
                 maxTranslationRatio: CGPoint(x: 2, y: 0),
                 keepVerticalSpacingEqual: true,
@@ -45,8 +49,10 @@ public extension ScaleTransformViewOptions {
             )
         case .easeIn:
             return Self(
-                minScale: 0.6,
-                scaleRatio: 0.4,
+                minScaleWidth: 0.6,
+                minScaleHeight: 0.6,
+                scaleRatioWidth: 0.4,
+                scaleRatioHeight: 0.4,
                 translationRatio: CGPoint(x: 0.66, y: 0.2),
                 keepVerticalSpacingEqual: true,
                 keepHorizontalSpacingEqual: true,
@@ -55,8 +61,10 @@ public extension ScaleTransformViewOptions {
             )
         case .easeOut:
             return Self(
-                minScale: 0.6,
-                scaleRatio: 0.4,
+                minScaleWidth: 0.6,
+                minScaleHeight: 0.6,
+                scaleRatioWidth: 0.4,
+                scaleRatioHeight: 0.4,
                 translationRatio: CGPoint(x: 0.66, y: 0.2),
                 keepVerticalSpacingEqual: true,
                 keepHorizontalSpacingEqual: true,
@@ -65,8 +73,10 @@ public extension ScaleTransformViewOptions {
             )
         case .rotary:
             return Self(
-                minScale: 0,
-                scaleRatio: 0.4,
+                minScaleWidth: 0,
+                minScaleHeight: 0,
+                scaleRatioWidth: 0.4,
+                scaleRatioHeight: 0.4,
                 translationRatio: CGPoint(x: 0.1, y: 0.1),
                 minTranslationRatio: CGPoint(x: -1, y: 0),
                 maxTranslationRatio: CGPoint(x: 1, y: 1),
@@ -77,9 +87,11 @@ public extension ScaleTransformViewOptions {
             )
         case .cylinder:
             return Self(
-                minScale: 0.55,
+                minScaleWidth: 0.55,
+                minScaleHeight: 0.55,
                 maxScale: 0.55,
-                scaleRatio: 0,
+                scaleRatioWidth: 0.0,
+                scaleRatioHeight: 0.0,
                 translationRatio: .zero,
                 minTranslationRatio: .zero,
                 maxTranslationRatio: .zero,
@@ -89,9 +101,11 @@ public extension ScaleTransformViewOptions {
             )
         case .invertedCylinder:
             return Self(
-                minScale: 1.2,
+                minScaleWidth: 1.2,
+                minScaleHeight: 1.2,
                 maxScale: 1.2,
-                scaleRatio: 0,
+                scaleRatioWidth: 0.0,
+                scaleRatioHeight: 0.0,
                 translationRatio: .zero,
                 minTranslationRatio: .zero,
                 maxTranslationRatio: .zero,
@@ -126,9 +140,11 @@ public extension ScaleTransformViewOptions {
                 )
                 
             return Self(
-                minScale: 0.7,
+                minScaleWidth: 0.7,
+                minScaleHeight: 0.7,
                 maxScale: 0.7,
-                scaleRatio: 0,
+                scaleRatioWidth: 0.0,
+                scaleRatioHeight: 0.0,
                 translationRatio: .zero,
                 minTranslationRatio: .zero,
                 maxTranslationRatio: .zero,

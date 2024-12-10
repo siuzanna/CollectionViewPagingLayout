@@ -101,19 +101,23 @@ public extension ScaleTransformView {
         var xAdjustment: CGFloat = 0
         var yAdjustment: CGFloat = 0
         let scaleProgress = scaleOptions.scaleCurve.computeFromLinear(progress: abs(progress))
-        var scale = 1 - scaleProgress * scaleOptions.scaleRatio
-        scale = max(scale, scaleOptions.minScale)
-        scale = min(scale, scaleOptions.maxScale)
-        
+
+        var scaleWidth = 1 - scaleProgress * scaleOptions.scaleRatioWidth
+        var scaleHeight = 1 - scaleProgress * scaleOptions.scaleRatioHeight
+        scaleWidth = max(scaleWidth, scaleOptions.minScaleWidth)
+        scaleHeight = max(scaleHeight, scaleOptions.minScaleHeight)
+        scaleWidth = min(scaleWidth, scaleOptions.maxScale)
+        scaleHeight = min(scaleHeight, scaleOptions.maxScale)
+
         if scaleOptions.keepHorizontalSpacingEqual {
-            xAdjustment = ((1 - scale) * scalableView.bounds.width) / 2
+            xAdjustment = ((1 - scaleWidth) * scalableView.bounds.width) / 2
             if progress > 0 {
                 xAdjustment *= -1
             }
         }
         
         if scaleOptions.keepVerticalSpacingEqual {
-            yAdjustment = ((1 - scale) * scalableView.bounds.height) / 2
+            yAdjustment = ((1 - scaleHeight) * scalableView.bounds.height) / 2
         }
         
         let translateProgress = scaleOptions.translationCurve.computeFromLinear(progress: abs(progress))
@@ -129,7 +133,7 @@ public extension ScaleTransformView {
         }
         transform = transform
             .translatedBy(x: translateX, y: translateY)
-            .scaledBy(x: scale, y: scale)
+            .scaledBy(x: scaleWidth, y: scaleHeight)
         scalableView.transform = transform
     }
     

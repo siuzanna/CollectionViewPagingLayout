@@ -12,17 +12,22 @@ import UIKit
 public struct ScaleTransformViewOptions {
     
     // MARK: Properties
-    
+
     /// The minimum scale factor for side views
-    public var minScale: CGFloat
-    
+    public var minScaleWidth: CGFloat
+
+    /// The minimum scale factor for side views
+    public var minScaleHeight: CGFloat
+
     /// The maximum scale factor for side views
     public var maxScale: CGFloat
     
     /// Ratio for computing scale for each item
     /// Scale = 1 - progress * `scaleRatio`
-    public var scaleRatio: CGFloat
-    
+    public var scaleRatioWidth: CGFloat
+
+    public var scaleRatioHeight: CGFloat
+
     /// Ratio for the amount of translate for side views, calculates by `scalableView` size
     /// for instance, if translationRatio.x = 0.5 and scalableView.width = 100 then
     /// translateX = 50 for the right view and translateX = -50 for the left view
@@ -93,9 +98,11 @@ public struct ScaleTransformViewOptions {
     // MARK: Lifecycle
     
     public init(
-        minScale: CGFloat = 0.75,
+        minScaleWidth: CGFloat = 0.75,
+        minScaleHeight: CGFloat = 0.75,
         maxScale: CGFloat = 1,
-        scaleRatio: CGFloat = 0.25,
+        scaleRatioWidth: CGFloat = 0.25,
+        scaleRatioHeight: CGFloat = 0.25,
         translationRatio: CGPoint = .init(x: 0.93, y: 0.36),
         minTranslationRatio: CGPoint? = .init(x: -5, y: -5),
         maxTranslationRatio: CGPoint? = .init(x: 5, y: 5),
@@ -118,9 +125,11 @@ public struct ScaleTransformViewOptions {
         rotation3d: Rotation3dOptions? = nil,
         translation3d: Translation3dOptions? = nil
     ) {
-        self.minScale = minScale
+        self.minScaleWidth = minScaleWidth
+        self.minScaleHeight = minScaleHeight
         self.maxScale = maxScale
-        self.scaleRatio = scaleRatio
+        self.scaleRatioWidth = scaleRatioWidth
+        self.scaleRatioHeight = scaleRatioHeight
         self.translationRatio = translationRatio
         self.minTranslationRatio = minTranslationRatio
         self.maxTranslationRatio = maxTranslationRatio
