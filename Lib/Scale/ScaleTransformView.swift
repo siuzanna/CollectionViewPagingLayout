@@ -21,7 +21,7 @@ public protocol ScaleTransformView: TransformableView {
     var scaleBlurViewHost: UIView { get }
     
     /// the main function for applying transforms
-    func applyScaleTransform(progress: CGFloat)
+    func applyScaleTransform(progress: CGFloat, shouldScale: Bool)
 }
 
 
@@ -62,9 +62,9 @@ public extension ScaleTransformView {
     
     // MARK: Public functions
     
-    func applyScaleTransform(progress: CGFloat) {
+    func applyScaleTransform(progress: CGFloat, shouldScale: Bool = true) {
         applyStyle(progress: progress)
-        applyScaleAndTranslation(progress: progress)
+        applyScaleAndTranslation(progress: progress, shouldScale: shouldScale)
         applyCATransform3D(progress: progress)
         
         if #available(iOS 10, *) {
@@ -96,7 +96,7 @@ public extension ScaleTransformView {
         layer.shadowOpacity = max(scaleOptions.shadowOpacityMin, (1 - abs(Float(progress))) * scaleOptions.shadowOpacityMax)
     }
     
-    private func applyScaleAndTranslation(progress: CGFloat) {
+    private func applyScaleAndTranslation(progress: CGFloat, shouldScale: Bool) {
         var transform = CGAffineTransform.identity
         var xAdjustment: CGFloat = 0
         var yAdjustment: CGFloat = 0
@@ -104,10 +104,6 @@ public extension ScaleTransformView {
 
         var scaleWidth = 1 - scaleProgress * scaleOptions.scaleRatioWidth
         var scaleHeight = 1 - scaleProgress * scaleOptions.scaleRatioHeight
-        scaleWidth = max(scaleWidth, scaleOptions.minScaleWidth)
-        scaleHeight = max(scaleHeight, scaleOptions.minScaleHeight)
-        scaleWidth = min(scaleWidth, scaleOptions.maxScale)
-        scaleHeight = min(scaleHeight, scaleOptions.maxScale)
 
         if scaleOptions.keepHorizontalSpacingEqual {
             xAdjustment = ((1 - scaleWidth) * scalableView.bounds.width) / 2
@@ -131,9 +127,26 @@ public extension ScaleTransformView {
             translateX = min(translateX, scalableView.bounds.width * max.x)
             translateY = min(translateY, scalableView.bounds.height * max.y)
         }
-        transform = transform
-            .translatedBy(x: translateX, y: translateY)
-            .scaledBy(x: scaleWidth, y: scaleHeight)
+
+        if shouldScale == true {
+            scaleWidth = max(scaleWidth, scaleOptions.minScaleWidth)
+            scaleHeight = max(scaleHeight, scaleOptions.minScaleHeight)
+            scaleWidth = min(scaleWidth, scaleOptions.maxScale)
+            scaleHeight = min(scaleHeight, scaleOptions.maxScale)
+
+            transform = transform
+                .translatedBy(x: translateX, y: translateY)
+                .scaledBy(x: scaleWidth, y: scaleHeight)
+        } else {
+            scaleWidth = min(scaleWidth, scaleOptions.minScaleWidth)
+            scaleHeight = min(scaleHeight, scaleOptions.minScaleHeight)
+            scaleWidth = min(scaleWidth, scaleOptions.maxScale)
+            scaleHeight = min(scaleHeight, scaleOptions.maxScale)
+
+            transform = transform
+                .translatedBy(x: translateX, y: translateY)
+                .scaledBy(x: scaleWidth, y: scaleHeight)
+        }
         scalableView.transform = transform
     }
     
