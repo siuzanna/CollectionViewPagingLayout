@@ -105,13 +105,18 @@ public extension ScaleTransformView {
         var scaleWidth = 1 - scaleProgress * scaleOptions.scaleRatioWidth
         var scaleHeight = 1 - scaleProgress * scaleOptions.scaleRatioHeight
 
+            scaleWidth = max(scaleWidth, scaleOptions.minScaleWidth)
+            scaleHeight = max(scaleHeight, scaleOptions.minScaleHeight)
+            scaleWidth = min(scaleWidth, scaleOptions.maxScale)
+            scaleHeight = min(scaleHeight, scaleOptions.maxScale)
+
         if scaleOptions.keepHorizontalSpacingEqual {
             xAdjustment = ((1 - scaleWidth) * scalableView.bounds.width) / 2
             if progress > 0 {
                 xAdjustment *= -1
             }
         }
-        
+
         if scaleOptions.keepVerticalSpacingEqual {
             yAdjustment = ((1 - scaleHeight) * scalableView.bounds.height) / 2
         }
@@ -129,11 +134,6 @@ public extension ScaleTransformView {
         }
 
         if shouldScale == true {
-            scaleWidth = max(scaleWidth, scaleOptions.minScaleWidth)
-            scaleHeight = max(scaleHeight, scaleOptions.minScaleHeight)
-            scaleWidth = min(scaleWidth, scaleOptions.maxScale)
-            scaleHeight = min(scaleHeight, scaleOptions.maxScale)
-
             transform = transform
                 .translatedBy(x: translateX, y: translateY)
                 .scaledBy(x: scaleWidth, y: scaleHeight)
