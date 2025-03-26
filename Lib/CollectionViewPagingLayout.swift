@@ -153,8 +153,10 @@ public class CollectionViewPagingLayout: UICollectionViewLayout {
         let attributesCount = numberOfVisibleItems ?? numberOfItems
         let visibleRangeMid = attributesCount / 2
         let currentPageIndex = Int(round(currentScrollOffset))
-        var initialStartIndex = currentPageIndex - visibleRangeMid
-        var initialEndIndex = currentPageIndex + visibleRangeMid
+
+        // Extend the visible range slightly to reduce blinking
+        var initialStartIndex = max(0, currentPageIndex - visibleRangeMid - 1)
+        var initialEndIndex = min(numberOfItems, currentPageIndex + visibleRangeMid + 2)
         if attributesCount % 2 != 0 {
             if currentPageIndex < visibleRangeMid {
                 initialStartIndex -= 1
