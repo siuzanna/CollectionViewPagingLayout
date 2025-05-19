@@ -156,7 +156,7 @@ public class CollectionViewPagingLayout: UICollectionViewLayout {
 
         // Extend the visible range slightly to reduce blinking
         var initialStartIndex = max(0, currentPageIndex - visibleRangeMid - 1)
-        var initialEndIndex = min(numberOfItems, currentPageIndex + visibleRangeMid + 2)
+        var initialEndIndex = min(numberOfItems, currentPageIndex + visibleRangeMid + 1)
         if attributesCount % 2 != 0 {
             if currentPageIndex < visibleRangeMid {
                 initialStartIndex -= 1
@@ -204,6 +204,9 @@ public class CollectionViewPagingLayout: UICollectionViewLayout {
                                               size: visibleRect.size)
             }
 
+            if index == initialStartIndex || index == initialEndIndex - 1 {
+                cellAttributes.alpha = 0
+            }
             // In some cases attribute.zIndex doesn't work so this is the work-around
             if let cell = cell, [ZPositionHandler.both, .cellLayer].contains(zPositionHandler) {
                 cell.layer.zPosition = CGFloat(zIndex)
