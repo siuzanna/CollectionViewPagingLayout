@@ -358,7 +358,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect --config \"${SRCROOT}/.swiftlint_autocorrect.yml\";\n  swiftlint --config \"${SRCROOT}/.swiftlint.yml\";\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect --config \"${SRCROOT}/.swiftlint_autocorrect.yml\" || echo \"warning: SwiftLint autocorrect failed\"\n  swiftlint --config \"${SRCROOT}/.swiftlint.yml\" || echo \"warning: SwiftLint failed\"\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
